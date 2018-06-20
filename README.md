@@ -2,7 +2,7 @@
 # react-native-swipe-up-down [![npm version](https://badge.fury.io/js/react-native-swipe-up-down.svg)](https://badge.fury.io/js/react-native-swipe-up-down)
 
 ## Demo
-![](./demo.gif)
+![](./demo.gif | width=250)
 
 ## Getting started
 
