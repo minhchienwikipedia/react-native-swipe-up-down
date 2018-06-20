@@ -2,7 +2,7 @@
 # react-native-swipe-up-down [![npm version](https://badge.fury.io/js/react-native-swipe-up-down.svg)](https://badge.fury.io/js/react-native-swipe-up-down)
 
 ## Demo
-<img src="https://im.ezgif.com/tmp/ezgif-1-dce6f748e0.gif" data-canonical-src="./demo.gif" width="300" height="536" />
+<img src="https://raw.githubusercontent.com/agiletechvn/react-native-swipe-up-down/master/demo.gif" data-canonical-src="./demo.gif" width="300" height="536" />
 
 ## Getting started
 
@@ -18,6 +18,7 @@ import SwipeUpDown from 'react-native-swipe-up-down';
 
 // TODO: What to do with the module?
 <SwipeUpDown
+	swipeHeight={60}			
 	itemMini={<ItemMini />} // Pass props component when collapsed
 	itemFull={<ItemFull />} // Pass props component when show full
 	onShowMini={() => console.log('mini')}
