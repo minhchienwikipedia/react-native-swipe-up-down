@@ -8,7 +8,7 @@
 
 `$ npm install react-native-swipe-up-down --save`
 
-#OR
+- OR
 
 `$ yarn add react-native-swipe-up-down`
 
