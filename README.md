@@ -28,4 +28,11 @@ import SwipeUpDown from 'react-native-swipe-up-down';
 	style={{ backgroundColor: 'green' }} // style for swipe
 />
 ```
+---
+
+## License
+
+This module is [MIT licensed](./LICENSE)
+
+---
   
