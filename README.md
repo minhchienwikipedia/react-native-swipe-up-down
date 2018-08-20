@@ -2,6 +2,7 @@
 # React Native Swipe Up Down 
 [![npm version](https://badge.fury.io/js/react-native-swipe-up-down.svg)](https://badge.fury.io/js/react-native-swipe-up-down) ![](https://img.shields.io/github/issues/agiletechvn/react-native-swipe-up-down.svg) ![](https://img.shields.io/github/forks/agiletechvn/react-native-swipe-up-down.svg) ![](https://img.shields.io/github/stars/agiletechvn/react-native-swipe-up-down.svg) ![](https://img.shields.io/github/license/agiletechvn/react-native-swipe-up-down.svg)
 
+# Support iOS & Android
 
 [![NPM](https://nodei.co/npm/react-native-swipe-up-down.png?downloads=true&stars=true)](https://nodei.co/npm/react-native-swipe-up-down/)
 
