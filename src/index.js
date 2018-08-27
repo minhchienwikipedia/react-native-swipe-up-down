@@ -11,28 +11,31 @@ import {
 } from 'react-native';
 
 import SwipeIcon from './components/SwipeIcon';
-import images from './assets/images';
+import images from '../../assets/images';
 
 const MARGIN_TOP = Platform.OS === 'ios' ? 20 : 0;
 const DEVICE_HEIGHT = Dimensions.get('window').height - MARGIN_TOP;
 type Props = {
+  hasRef?: () => void,
   swipeHeight?: number,
-  itemMini: object,
+  itemMini?: object,
   itemFull: object,
-  disablePressToShow: boolean,
+  disablePressToShow?: boolean,
   style?: object,
   onShowMini?: () => void,
   onShowFull?: () => void,
-  onMoveDown?: () => void,
-  onMoveUp?: () => void
+  animation?: 'linear' | 'spring' | 'easeInEaseOut' | 'none'
 };
 export default class SwipeUpDown extends Component<Props> {
+  static defautProps = {
+    disablePressToShow: false
+  };
   constructor(props) {
     super(props);
     this.state = {
       collapsed: true
     };
-    this.disablePressToShow = props.disablePressToShow || false;
+    this.disablePressToShow = props.disablePressToShow;
     this.SWIPE_HEIGHT = props.swipeHeight || 60;
     this._panResponder = null;
     this.top = this.SWIPE_HEIGHT;
@@ -45,6 +48,7 @@ export default class SwipeUpDown extends Component<Props> {
       }
     };
     this.checkCollapsed = true;
+    this.showFull = this.showFull.bind(this);
   }
 
   componentWillMount() {
@@ -55,21 +59,37 @@ export default class SwipeUpDown extends Component<Props> {
     });
   }
 
+  componentDidMount() {
+    this.props.hasRef && this.props.hasRef(this);
+  }
+
   updateNativeProps() {
-    LayoutAnimation.spring();
+    switch (this.props.animation) {
+      case 'linear':
+        LayoutAnimation.linear();
+        break;
+      case 'spring':
+        LayoutAnimation.spring();
+        break;
+      case 'easeInEaseOut':
+        LayoutAnimation.easeInEaseOut();
+        break;
+      case 'none':
+      default:
+        break;
+    }
     this.viewRef.setNativeProps(this.customStyle);
   }
 
   _onPanResponderMove(event, gestureState) {
-    const { onMoveUp, onMoveDown } = this.props;
     if (gestureState.dy > 0 && !this.checkCollapsed) {
       // SWIPE DOWN
+
       this.customStyle.style.top = this.top + gestureState.dy;
       this.customStyle.style.height = DEVICE_HEIGHT - gestureState.dy;
       this.swipeIconRef && this.swipeIconRef.setState({ icon: images.minus });
       !this.state.collapsed && this.setState({ collapsed: true });
       this.updateNativeProps();
-      onMoveDown && onMoveDown();
     } else if (this.checkCollapsed && gestureState.dy < -60) {
       // SWIPE UP
       this.top = 0;
@@ -86,7 +106,6 @@ export default class SwipeUpDown extends Component<Props> {
       }
       this.updateNativeProps();
       this.state.collapsed && this.setState({ collapsed: false });
-      onMoveUp && onMoveUp();
     }
   }
 
@@ -111,9 +130,11 @@ export default class SwipeUpDown extends Component<Props> {
   }
 
   showMini() {
-    const { onShowMini } = this.props;
-    this.customStyle.style.top = DEVICE_HEIGHT - this.SWIPE_HEIGHT;
-    this.customStyle.style.height = this.SWIPE_HEIGHT;
+    const { onShowMini, itemMini } = this.props;
+    this.customStyle.style.top = itemMini
+      ? DEVICE_HEIGHT - this.SWIPE_HEIGHT
+      : DEVICE_HEIGHT;
+    this.customStyle.style.height = itemMini ? this.SWIPE_HEIGHT : 0;
     this.swipeIconRef && this.swipeIconRef.setState({ showIcon: false });
     this.updateNativeProps();
     !this.state.collapsed && this.setState({ collapsed: true });
@@ -130,19 +151,28 @@ export default class SwipeUpDown extends Component<Props> {
         {...this._panResponder.panHandlers}
         style={[
           styles.wrapSwipe,
-          { height: this.SWIPE_HEIGHT, marginTop: MARGIN_TOP },
+          {
+            height: this.SWIPE_HEIGHT,
+            marginTop: MARGIN_TOP
+          },
+          !itemMini && collapsed && { marginBottom: -200 },
           style
         ]}
       >
-        <SwipeIcon hasRef={ref => (this.swipeIconRef = ref)} />
+        <SwipeIcon
+          onClose={() => this.showMini()}
+          hasRef={ref => (this.swipeIconRef = ref)}
+        />
         {collapsed ? (
-          <TouchableOpacity
-            activeOpacity={this.disablePressToShow ? 1 : 0.6}
-            style={{ height: this.SWIPE_HEIGHT }}
-            onPress={() => !this.disablePressToShow && this.showFull()}
-          >
-            {itemMini}
-          </TouchableOpacity>
+          itemMini ? (
+            <TouchableOpacity
+              activeOpacity={this.disablePressToShow ? 1 : 0.6}
+              style={{ height: this.SWIPE_HEIGHT }}
+              onPress={() => !this.disablePressToShow && this.showFull()}
+            >
+              {itemMini}
+            </TouchableOpacity>
+          ) : null
         ) : (
           itemFull
         )}

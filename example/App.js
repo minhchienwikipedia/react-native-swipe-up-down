@@ -7,11 +7,15 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <Text> Welcome to React Native! </Text>
+        <Text onPress={() => this.swipeUpDownRef.showFull()}>
+          {' '}
+          Welcome to React Native!{' '}
+        </Text>
         <SwipeUpDown
-          itemMini={
-            <Text style={styles.welcome}>Welcome to React Native!</Text>
-          }
+          hasRef={ref => (this.swipeUpDownRef = ref)}
+          // itemMini={
+          //   <Text style={styles.welcome}>Welcome to React Native!</Text>
+          // }
           itemFull={
             <Text style={styles.instructions}>
               Welcome to component {'\n'} Swipe Up Down on React Native
@@ -21,6 +25,7 @@ export default class App extends Component<Props> {
           onShowFull={() => console.log('full')}
           disablePressToShow={false}
           style={{ backgroundColor: '#ccc' }}
+          animation="easeInEaseOut"
         />
       </View>
     );
