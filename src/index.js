@@ -131,7 +131,7 @@ export default class SwipeUpDown extends Component<Props> {
 
   showMini() {
     const { onShowMini, itemMini } = this.props;
-    this.SWIPE_HEIGHT = 150; //Avoid hiding when swiping down.
+    this.SWIPE_HEIGHT = 150; // Avoid hiding when swiping down.
     this.customStyle.style.top = itemMini
       ? DEVICE_HEIGHT - this.SWIPE_HEIGHT
       : DEVICE_HEIGHT;
