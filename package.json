@@ -11,13 +11,16 @@
     "url": "https://github.com/agiletechvn/react-native-swipe-up-down.git"
   },
   "keywords": [
-    "react-native", "minhchienwikipedia", "agiletechvn", "ios", "android"
+    "react-native",
+    "minhchienwikipedia",
+    "agiletechvn",
+    "ios",
+    "android"
   ],
-  "author":
-    "Duong Minh Chien <minhchienwikipedia@gmail.com> (https://github.com/minhchienwikipedia)",
+  "author": "Duong Minh Chien <minhchienwikipedia@gmail.com> (https://github.com/minhchienwikipedia)",
   "license": "MIT",
   "peerDependencies": {
-    "react-native": "^0.41.2"
+    "react-native": ">=0.41.2"
   },
   "dependencies": {}
 }
