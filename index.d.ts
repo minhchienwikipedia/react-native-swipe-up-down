@@ -1,5 +1,5 @@
-declare module 'react-native-swipe-up-down' {
-  import * as React from 'react';
+declare module "react-native-swipe-up-down" {
+  import * as React from "react";
 
   export interface SwipeUpProps {
     hasRef?: () => void;
@@ -10,7 +10,7 @@ declare module 'react-native-swipe-up-down' {
     style?: object;
     onShowMini?: () => void;
     onShowFull?: () => void;
-    animation?: 'linear' | 'spring' | 'easeInEaseOut' | 'none';
+    animation?: "linear" | "spring" | "easeInEaseOut" | "none";
   }
 
   export default class SwipeUp extends React.Component<SwipeUpProps, any> {
