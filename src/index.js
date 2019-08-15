@@ -15,18 +15,8 @@ import images from "../../assets/images";
 
 const MARGIN_TOP = Platform.OS === "ios" ? 20 : 0;
 const DEVICE_HEIGHT = Dimensions.get("window").height - MARGIN_TOP;
-type Props = {
-  hasRef?: () => void,
-  swipeHeight?: number,
-  itemMini?: object,
-  itemFull: object,
-  disablePressToShow?: boolean,
-  style?: object,
-  onShowMini?: () => void,
-  onShowFull?: () => void,
-  animation?: "linear" | "spring" | "easeInEaseOut" | "none"
-};
-export default class SwipeUpDown extends Component<Props> {
+
+export default class SwipeUpDown extends Component{
   static defautProps = {
     disablePressToShow: false
   };
