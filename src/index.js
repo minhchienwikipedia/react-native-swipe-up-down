@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 import SwipeIcon from "./components/SwipeIcon";
-import images from "../../assets/images";
+import images from "./assets/images";
 
 const MARGIN_TOP = Platform.OS === "ios" ? 20 : 0;
 const DEVICE_HEIGHT = Dimensions.get("window").height - MARGIN_TOP;
