@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 import SwipeIcon from "./components/SwipeIcon";
-import images from "../../assets/images";
+import images from "./assets/images";
 
 const MARGIN_TOP = Platform.OS === "ios" ? 20 : 0;
 const DEVICE_HEIGHT = Dimensions.get("window").height - MARGIN_TOP;
@@ -44,7 +44,10 @@ export default class SwipeUpDown extends Component{
 
   componentWillMount() {
     this._panResponder = PanResponder.create({
-      onMoveShouldSetPanResponder: (event, gestureState) => true,
+      onMoveShouldSetPanResponder: (event, gestureState) => {
+	console.log('_onMoveShouldSetPanResponder__', gestureState.dx, gestureState.dy);
+        return !(Math.abs(gestureState.dx) < 5 && Math.abs(gestureState.dy) < 5);
+      },
       onPanResponderMove: this._onPanResponderMove.bind(this),
       onPanResponderRelease: this._onPanResponderRelease.bind(this)
     });
