@@ -38,6 +38,7 @@ export default class SwipeUpDown extends Component{
       }
     };
     this.checkCollapsed = true;
+    this.showMini = this.showMini.bind(this);
     this.showFull = this.showFull.bind(this);
   }
 
