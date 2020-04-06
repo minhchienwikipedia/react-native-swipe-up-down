@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
@@ -8,17 +8,29 @@ import {
   Dimensions,
   LayoutAnimation,
   TouchableOpacity
-} from "react-native";
+} from 'react-native';
 
-import SwipeIcon from "./components/SwipeIcon";
-import images from "./assets/images";
+import SwipeIcon from './components/SwipeIcon';
+import images from './assets/images';
 
-const MARGIN_TOP = Platform.OS === "ios" ? 20 : 0;
-const DEVICE_HEIGHT = Dimensions.get("window").height - MARGIN_TOP;
-
-export default class SwipeUpDown extends Component{
+const MARGIN_TOP = Platform.OS === 'ios' ? -45 : 0;
+const DEVICE_HEIGHT = Dimensions.get('window').height;
+type Props = {
+  hasRef?: () => void,
+  swipeHeight?: number,
+  itemMini?: object,
+  itemFull: object,
+  disablePressToShow?: boolean,
+  showSwipeIcon?: boolean,
+  style?: object,
+  onShowMini?: () => void,
+  onShowFull?: () => void,
+  animation?: 'linear' | 'spring' | 'easeInEaseOut' | 'none'
+};
+export default class SwipeUpDown extends Component<Props> {
   static defautProps = {
-    disablePressToShow: false
+    disablePressToShow: false,
+    showSwipeIcon: true
   };
   constructor(props) {
     super(props);
@@ -44,10 +56,7 @@ export default class SwipeUpDown extends Component{
 
   componentWillMount() {
     this._panResponder = PanResponder.create({
-      onMoveShouldSetPanResponder: (event, gestureState) => {
-	console.log('_onMoveShouldSetPanResponder__', gestureState.dx, gestureState.dy);
-        return !(Math.abs(gestureState.dx) < 5 && Math.abs(gestureState.dy) < 5);
-      },
+      onMoveShouldSetPanResponder: (event, gestureState) => true,
       onPanResponderMove: this._onPanResponderMove.bind(this),
       onPanResponderRelease: this._onPanResponderRelease.bind(this)
     });
@@ -59,16 +68,16 @@ export default class SwipeUpDown extends Component{
 
   updateNativeProps() {
     switch (this.props.animation) {
-      case "linear":
+      case 'linear':
         LayoutAnimation.linear();
         break;
-      case "spring":
+      case 'spring':
         LayoutAnimation.spring();
         break;
-      case "easeInEaseOut":
+      case 'easeInEaseOut':
         LayoutAnimation.easeInEaseOut();
         break;
-      case "none":
+      case 'none':
       default:
         break;
     }
@@ -138,7 +147,7 @@ export default class SwipeUpDown extends Component{
   }
 
   render() {
-    const { itemMini, itemFull, style } = this.props;
+    const { itemMini, itemFull, style, showSwipeIcon } = this.props;
     const { collapsed } = this.state;
     return (
       <View
@@ -154,10 +163,12 @@ export default class SwipeUpDown extends Component{
           style
         ]}
       >
-        <SwipeIcon
-          onClose={() => this.showMini()}
-          hasRef={ref => (this.swipeIconRef = ref)}
-        />
+        {
+          showSwipeIcon && <SwipeIcon
+            onClose={() => this.showMini()}
+            hasRef={ref => (this.swipeIconRef = ref)}
+          />
+        }
         {collapsed ? (
           itemMini ? (
             <TouchableOpacity
@@ -179,10 +190,10 @@ export default class SwipeUpDown extends Component{
 const styles = StyleSheet.create({
   wrapSwipe: {
     padding: 10,
-    backgroundColor: "#ccc",
+    backgroundColor: '#ccc',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0
