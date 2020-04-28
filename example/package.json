@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "react": "16.8.3",
-    "react-native": "0.59.5",
+    "react-native": "0.59.9",
     "react-native-swipe-up-down": "^1.0.7"
   },
   "devDependencies": {
