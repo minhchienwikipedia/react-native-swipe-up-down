@@ -42,7 +42,7 @@ const SwipeUpDown = forwardRef(
       style,
       onShowMini,
       onShowFull,
-      animation,
+      animation = "spring",
       disableSwipeIcon,
     },
     ref
