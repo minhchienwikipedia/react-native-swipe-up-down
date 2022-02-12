@@ -3,20 +3,23 @@
 [![npm version](https://badge.fury.io/js/react-native-swipe-up-down.svg)](https://badge.fury.io/js/react-native-swipe-up-down) ![](https://img.shields.io/github/issues/agiletechvn/react-native-swipe-up-down.svg) ![](https://img.shields.io/github/forks/agiletechvn/react-native-swipe-up-down.svg) ![](https://img.shields.io/github/stars/agiletechvn/react-native-swipe-up-down.svg) ![](https://img.shields.io/github/license/agiletechvn/react-native-swipe-up-down.svg)
 
 [![NPM](https://nodei.co/npm/react-native-swipe-up-down.png?downloads=true&stars=true)](https://nodei.co/npm/react-native-swipe-up-down/)
-## This module support iOS & Android
+## Why using this lib?
+- Support iOS & Android
+- The best performance 60FPS for UI and JS when swipe up down
+- Easy to use, easy to install - no more another package, only JS
 ## Demo
 <img src="https://raw.githubusercontent.com/agiletechvn/react-native-swipe-up-down/master/demo.gif" data-canonical-src="./demo.gif" width="300" height="536" />
 
 ### When hidden component
 <img src="https://raw.githubusercontent.com/agiletechvn/react-native-swipe-up-down/master/demo_hidden_component.gif" data-canonical-src="./demo.gif" width="300" height="536" />
 
-## Getting started
+## Install
 
-`$ npm install react-native-swipe-up-down --save`
+`npm install react-native-swipe-up-down --save`
 
 - OR
 
-`$ yarn add react-native-swipe-up-down`
+`yarn add react-native-swipe-up-down`
 
 ## Usage
 ```javascript
@@ -28,25 +31,30 @@ import SwipeUpDown from 'react-native-swipe-up-down';
 	itemFull={<ItemFull />} // Pass props component when show full
 	onShowMini={() => console.log('mini')}
 	onShowFull={() => console.log('full')}
-	onMoveDown={() => console.log('down')}
-	onMoveUp={() => console.log('up')}
 	disablePressToShow={false} // Press item mini to show full
-	style={{ backgroundColor: 'green' }} // style for swipe
+	animation="spring"
+	extraMarginTop={24}
+	style={{ backgroundColor: 'black' }} // style for swipe
 />
 ```
-
-## More Props
 
 ## Note 
 
 If you want hidden component just don't pass props `itemMini`. It's will hidden. And then you can use `hasRef` to show it when you want.
+And try to using this method to show FullComponent
 
-### `hasRef` 
 ```jsx
- hasRef={ref => (this.swipeUpDownRef = ref)} 
+ const swipeUpDownRef = useRef();
+ // Show component
+ swipeUpDownRef.current.showFull();
  // This ref can help you show component when hidden component
- <Text onPress={() => this.swipeUpDownRef.showFull()}>Show</Text>
+ <SwipeUpDown
+	itemFull={<Test />}
+	ref={swipeUpDownRef}
+/>
 ```
+
+## More Props
 
 ### `animation`
 
@@ -63,6 +71,11 @@ Optional
 ### `swipeHeight` 
 ```jsx
 swipeHeight={100} // Default 60
+```
+---
+### `extraMarginTop` 
+```jsx
+extraMarginTop={24} // Default iOS: 24 | Android: 0 - Using for padding status bar iOS or max height full component
 ```
 ---
 

@@ -1,34 +1,40 @@
-import React, { Component } from 'react';
-import { Image, View, Animated } from 'react-native';
-import images from '../../assets/images';
+import React, { forwardRef, useImperativeHandle, useState } from "react";
+import { Image, StyleSheet, View } from "react-native";
+import images from "../../assets/images";
 
-export default class SwipeIcon extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      icon: images.minus,
-      showIcon: false
-    };
-  }
-  componentDidMount() {
-    this.props.hasRef && this.props.hasRef(this);
-  }
+const SwipeIcon = (props, ref) => {
+  const [data, setData] = useState({
+    icon: images.minus,
+    showIcon: false,
+  });
 
-  toggleShowHide(val) {
-    this.setState({ showIcon: val });
-  }
+  useImperativeHandle(
+    ref,
+    () => ({
+      setData: (val) => {
+        setData((pre) => ({ ...pre, ...val }));
+      },
+    }),
+    []
+  );
 
-  render() {
-    const { icon, showIcon } = this.state;
-    return (
-      <View style={{ alignItems: 'center', height: 10, marginBottom: 5 }}>
-        {showIcon && (
-          <Image
-            source={icon}
-            style={{ width: 35, height: icon === images.minus ? 5 : 10 }}
-          />
-        )}
-      </View>
-    );
-  }
-}
+  return (
+    <View style={styles.wrapIcon}>
+      {data.showIcon && (
+        <Image
+          source={data.icon}
+          style={{
+            width: 35,
+            height: data.icon === images.minus ? 5 : 10,
+          }}
+        />
+      )}
+    </View>
+  );
+};
+
+export default forwardRef(SwipeIcon);
+
+const styles = StyleSheet.create({
+  wrapIcon: { alignItems: "center", height: 10, marginBottom: 5 },
+});
