@@ -27,30 +27,8 @@ import SwipeUpDown from 'react-native-swipe-up-down';
 
 // TODO: What to do with the module?
 <SwipeUpDown
-	itemMini={(show) => (
-		<View
-			style={{
-				alignItems: 'center',
-				flex: 1,
-				backgroundColor: 'green',
-			}}>
-			<Text onPress={show}>
-				Swipe up or press me to show
-			</Text>
-		</View>
-	)}
-	itemFull={(hide) => (
-		<View
-			style={{
-				flex: 1,
-				justifyContent: 'center',
-				backgroundColor: 'red',
-			}}>
-			<Text onPress={hide}>
-				Swipe down or press me to hide
-			</Text>
-		</View>
-	)}
+	itemMini={(show) => <ItemFull show={show} />}
+	itemFull={(hide) => <ItemFull hide={hide} />}
 	onShowMini={() => console.log('mini')}
 	onShowFull={() => console.log('full')}
 	animation="spring"
