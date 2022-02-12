@@ -1,5 +1,6 @@
 declare module "react-native-swipe-up-down" {
   import * as React from "react";
+  import { StyleProp, ViewStyle } from "react-native";
 
   export interface SwipeUpProps {
     hasRef?: () => void;
@@ -7,7 +8,7 @@ declare module "react-native-swipe-up-down" {
     itemMini?: object;
     itemFull: object;
     disablePressToShow?: boolean;
-    style?: object;
+    style?: StyleProp<ViewStyle>;
     onShowMini?: () => void;
     onShowFull?: () => void;
     animation?: "linear" | "spring" | "easeInEaseOut" | "none";
