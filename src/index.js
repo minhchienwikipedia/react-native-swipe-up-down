@@ -44,6 +44,8 @@ const SwipeUpDown = forwardRef(
       onShowFull,
       animation = "spring",
       disableSwipeIcon,
+      iconSize,
+      iconColor,
     },
     ref
   ) => {
@@ -188,7 +190,9 @@ const SwipeUpDown = forwardRef(
           style,
         ]}
       >
-        {!disableSwipeIcon && <SwipeIcon ref={swipeIconRef} />}
+        {!disableSwipeIcon && (
+          <SwipeIcon size={iconSize} color={iconColor} ref={swipeIconRef} />
+        )}
         {collapsed
           ? itemMini
             ? renderMiniComponent()
@@ -209,5 +213,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    overflow: "hidden",
   },
 });

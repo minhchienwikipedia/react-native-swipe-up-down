@@ -35,6 +35,8 @@ import SwipeUpDown from 'react-native-swipe-up-down';
 	animation="spring"
 	disableSwipeIcon
 	extraMarginTop={100}
+	iconColor='yellow'
+	iconSize={30}
 	style={{ backgroundColor: '#000' }} // style for swipe
 />
 ```

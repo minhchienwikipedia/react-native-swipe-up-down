@@ -2,7 +2,10 @@ import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
 import images from "../../assets/images";
 
-const SwipeIcon = (props, ref) => {
+const MINUS_RATIO = 35 / 5;
+const ARROW_RATIO = 35 / 10;
+
+const SwipeIcon = ({ color, size = 35 }, ref) => {
   const [data, setData] = useState({
     icon: images.minus,
     showIcon: false,
@@ -24,8 +27,10 @@ const SwipeIcon = (props, ref) => {
         <Image
           source={data.icon}
           style={{
-            width: 35,
-            height: data.icon === images.minus ? 5 : 10,
+            tintColor: color,
+            width: size,
+            height:
+              size / (data.icon === images.minus ? MINUS_RATIO : ARROW_RATIO),
           }}
         />
       )}

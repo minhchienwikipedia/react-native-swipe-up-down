@@ -11,6 +11,8 @@ interface SwipeUpDownProps {
   onShowMini?: () => void;
   onShowFull?: () => void;
   animation?: "linear" | "spring" | "easeInEaseOut";
+  iconSize?: Number;
+  iconColor?: String;
 }
 
 export default function SwipeUpDown(props: SwipeUpDownProps): JSX.Element;
