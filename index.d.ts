@@ -5,7 +5,6 @@ declare module "react-native-swipe-up-down" {
     swipeHeight?: number;
     itemMini?: object;
     itemFull: object;
-    disablePressToShow?: boolean;
     disableSwipeIcon?: boolean;
     style?: StyleProp<ViewStyle>;
     onShowMini?: () => void;

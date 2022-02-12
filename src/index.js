@@ -35,7 +35,6 @@ const CustomAnimation = {
 const SwipeUpDown = forwardRef(
   (
     {
-      disablePressToShow,
       swipeHeight = 60,
       extraMarginTop = MARGIN_TOP,
       itemMini = null,
@@ -161,6 +160,20 @@ const SwipeUpDown = forwardRef(
       onShowMini?.();
     };
 
+    const renderFullComponent = () => {
+      if (typeof itemFull === "function") {
+        return itemFull(showMini);
+      }
+      return itemFull;
+    };
+
+    const renderMiniComponent = () => {
+      if (typeof itemMini === "function") {
+        return itemMini(showFull);
+      }
+      return itemMini;
+    };
+
     return (
       <View
         ref={viewRef}
@@ -176,20 +189,11 @@ const SwipeUpDown = forwardRef(
         ]}
       >
         {!disableSwipeIcon && <SwipeIcon ref={swipeIconRef} />}
-        {collapsed ? (
-          itemMini ? (
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={{ height: swipeHeight }}
-              disabled={disablePressToShow}
-              onPress={showFull}
-            >
-              {itemMini}
-            </TouchableOpacity>
-          ) : null
-        ) : (
-          itemFull
-        )}
+        {collapsed
+          ? itemMini
+            ? renderMiniComponent()
+            : null
+          : renderFullComponent()}
       </View>
     );
   }

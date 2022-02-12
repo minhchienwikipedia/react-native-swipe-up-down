@@ -26,15 +26,37 @@
 import SwipeUpDown from 'react-native-swipe-up-down';
 
 // TODO: What to do with the module?
-<SwipeUpDown		
-	itemMini={<ItemMini />} // Pass props component when collapsed
-	itemFull={<ItemFull />} // Pass props component when show full
+<SwipeUpDown
+	itemMini={(show) => (
+		<View
+			style={{
+				alignItems: 'center',
+				flex: 1,
+				backgroundColor: 'green',
+			}}>
+			<Text onPress={show}>
+				Swipe up or press me to show
+			</Text>
+		</View>
+	)}
+	itemFull={(hide) => (
+		<View
+			style={{
+				flex: 1,
+				justifyContent: 'center',
+				backgroundColor: 'red',
+			}}>
+			<Text onPress={hide}>
+				Swipe down or press me to hide
+			</Text>
+		</View>
+	)}
 	onShowMini={() => console.log('mini')}
 	onShowFull={() => console.log('full')}
-	disablePressToShow={false} // Press item mini to show full
 	animation="spring"
-	extraMarginTop={24}
-	style={{ backgroundColor: 'black' }} // style for swipe
+	disableSwipeIcon
+	extraMarginTop={100}
+	style={{ backgroundColor: '#000' }} // style for swipe
 />
 ```
 
@@ -72,10 +94,13 @@ Optional
 ```jsx
 swipeHeight={100} // Default 60
 ```
----
 ### `extraMarginTop` 
 ```jsx
 extraMarginTop={24} // Default iOS: 24 | Android: 0 - Using for padding status bar iOS or max height full component
+```
+### `disableSwipeIcon` 
+```jsx
+disableSwipeIcon={true}
 ```
 ---
 
