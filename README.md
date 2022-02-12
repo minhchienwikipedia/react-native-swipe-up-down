@@ -7,11 +7,12 @@
 - Support iOS & Android
 - The best performance 60FPS for UI and JS when swipe up down
 - Easy to use, easy to install - no more another package, only JS
-## Demo
-<img src="https://raw.githubusercontent.com/agiletechvn/react-native-swipe-up-down/master/demo.gif" data-canonical-src="./demo.gif" width="300" height="536" />
 
-### When hidden component
-<img src="https://raw.githubusercontent.com/agiletechvn/react-native-swipe-up-down/master/demo_hidden_component.gif" data-canonical-src="./demo.gif" width="300" height="536" />
+## Demo
+
+|Full/Mini|Hidden component|
+|---|---|
+|<img src="https://raw.githubusercontent.com/agiletechvn/react-native-swipe-up-down/master/demo.gif" data-canonical-src="./demo.gif" width="300" height="536" />|<img src="https://raw.githubusercontent.com/agiletechvn/react-native-swipe-up-down/master/demo_hidden_component.gif" data-canonical-src="./demo.gif" width="300" height="536" />|
 
 ## Install
 
