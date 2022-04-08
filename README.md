@@ -12,7 +12,7 @@
 
 |Full/Mini|Hidden component|
 |---|---|
-|<img src="https://raw.githubusercontent.com/agiletechvn/react-native-swipe-up-down/master/demo.gif" data-canonical-src="./demo.gif" width="300" height="536" />|<img src="https://raw.githubusercontent.com/agiletechvn/react-native-swipe-up-down/master/demo_hidden_component.gif" data-canonical-src="./demo.gif" width="300" height="536" />|
+|<img src="https://raw.githubusercontent.com/agiletechvn/react-native-swipe-up-down/master/demo.gif" data-canonical-src="./demo.gif" width="300" height="630" />|<img src="https://raw.githubusercontent.com/agiletechvn/react-native-swipe-up-down/master/demo_hidden_component.gif" data-canonical-src="./demo.gif" width="300" height="630" />|
 
 ## Install
 
