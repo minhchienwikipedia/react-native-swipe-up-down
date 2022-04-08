@@ -15,4 +15,6 @@ interface SwipeUpDownProps {
   iconColor?: String;
 }
 
-export default function SwipeUpDown(props: SwipeUpDownProps): JSX.Element;
+declare class SwipeUpDownBase extends React.Component<SwipeUpDownProps> {}
+
+export default class SwipeUpDown extends SwipeUpDownBase {}

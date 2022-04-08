@@ -32,178 +32,173 @@ const CustomAnimation = {
   },
 };
 
-const SwipeUpDown = forwardRef(
-  (
-    {
-      swipeHeight = 60,
-      extraMarginTop = MARGIN_TOP,
-      itemMini = null,
-      itemFull = null,
-      style,
-      onShowMini,
-      onShowFull,
-      animation = "spring",
-      disableSwipeIcon,
-      iconSize,
-      iconColor,
+const SwipeUpDown = (
+  {
+    swipeHeight = 60,
+    extraMarginTop = MARGIN_TOP,
+    itemMini = null,
+    itemFull = null,
+    style,
+    onShowMini,
+    onShowFull,
+    animation = "spring",
+    disableSwipeIcon,
+    iconSize,
+    iconColor,
+  },
+  ref
+) => {
+  const FULL_POSITION = extraMarginTop;
+  const maxHeight = DEVICE_HEIGHT - extraMarginTop;
+  const MINI_POSITION = maxHeight - swipeHeight;
+  const EMPTY_MINI_POSITION = DEVICE_HEIGHT;
+  let top = !!itemMini ? MINI_POSITION : EMPTY_MINI_POSITION;
+  const customStyle = {
+    style: {
+      bottom: 0,
+      top,
     },
-    ref
-  ) => {
-    const SWIPE_HEIGHT = swipeHeight;
-    let top = SWIPE_HEIGHT;
-    let height = SWIPE_HEIGHT;
-    const customStyle = {
-      style: {
-        bottom: 0,
-        top,
-        height,
-      },
-    };
-    const checkCollapsed = useRef(true);
-    const viewRef = useRef();
-    const swipeIconRef = useRef();
-    const [collapsed, setCollapsed] = useState(true);
+  };
+  const checkCollapsed = useRef(true);
+  const viewRef = useRef();
+  const swipeIconRef = useRef();
+  const [collapsed, setCollapsed] = useState(true);
 
-    const onPanResponderMove = (event, gestureState) => {
-      if (gestureState.dy > 0 && !checkCollapsed.current) {
-        // SWIPE DOWN
-        customStyle.style.top = top + gestureState.dy;
-        customStyle.style.height = DEVICE_HEIGHT - gestureState.dy;
-        if (customStyle.style.height <= DEVICE_HEIGHT / 3) {
-          swipeIconRef.current?.setData({ icon: images.minus });
-          if (itemMini) {
-            setCollapsed(true);
-          }
+  const onPanResponderMove = (event, gestureState) => {
+    if (gestureState.dy > 0 && !checkCollapsed.current) {
+      // SWIPE DOWN
+      top = 0;
+      customStyle.style.top = top + gestureState.dy;
+      if (customStyle.style.height <= DEVICE_HEIGHT / 3) {
+        swipeIconRef.current?.setData({ icon: images.minus });
+        if (itemMini) {
+          setCollapsed(true);
         }
-        updateNativeProps();
-      } else if (checkCollapsed.current && gestureState.dy < -swipeHeight) {
-        // SWIPE UP
-        top = 0;
-        customStyle.style.top = DEVICE_HEIGHT + gestureState.dy;
-        customStyle.style.height = -gestureState.dy + SWIPE_HEIGHT;
-        swipeIconRef.current?.setData({
-          icon: images.minus,
-          showIcon: true,
-        });
-        if (customStyle.style.top <= DEVICE_HEIGHT / 2) {
-          swipeIconRef.current?.setData({
-            icon: images.arrow_down,
-            showIcon: true,
-          });
-          setCollapsed(false);
-        }
-        updateNativeProps();
       }
-    };
-
-    const onPanResponderRelease = (event, gestureState) => {
-      if (gestureState.dy < -100 || gestureState.dy < 100) {
-        showFull();
-      } else {
-        showMini();
-      }
-    };
-
-    const panResponder = React.useRef(
-      PanResponder.create({
-        onMoveShouldSetPanResponder: () => true,
-        onPanResponderMove,
-        onPanResponderRelease,
-      })
-    ).current;
-
-    useImperativeHandle(
-      ref,
-      () => ({
-        showFull,
-        showMini,
-      }),
-      []
-    );
-
-    const updateNativeProps = () => {
-      switch (animation) {
-        case "linear":
-          LayoutAnimation.linear();
-          break;
-        case "spring":
-          LayoutAnimation.configureNext(CustomAnimation);
-          break;
-        case "easeInEaseOut":
-          LayoutAnimation.easeInEaseOut();
-          break;
-        case "none":
-        default:
-          break;
-      }
-      viewRef.current.setNativeProps(customStyle);
-    };
-
-    const showFull = () => {
-      customStyle.style.top = 0;
-      customStyle.style.height = DEVICE_HEIGHT;
+      updateNativeProps();
+    } else if (checkCollapsed.current && gestureState.dy < -swipeHeight) {
+      // SWIPE UP
+      customStyle.style.top = DEVICE_HEIGHT + gestureState.dy;
       swipeIconRef.current?.setData({
-        icon: images.arrow_down,
+        icon: images.minus,
         showIcon: true,
       });
-      updateNativeProps();
-      setCollapsed(false);
-      checkCollapsed.current = false;
-      onShowFull?.();
-    };
-
-    const showMini = () => {
-      customStyle.style.top = itemMini ? null : DEVICE_HEIGHT;
-      customStyle.style.height = itemMini ? SWIPE_HEIGHT : 0;
-      swipeIconRef.current?.setData({ showIcon: false });
-      updateNativeProps();
-      setCollapsed(true);
-      checkCollapsed.current = true;
-      onShowMini?.();
-    };
-
-    const renderFullComponent = () => {
-      if (typeof itemFull === "function") {
-        return itemFull(showMini);
+      if (customStyle.style.top <= DEVICE_HEIGHT / 2) {
+        swipeIconRef.current?.setData({
+          icon: images.arrow_down,
+          showIcon: true,
+        });
+        setCollapsed(false);
       }
-      return itemFull;
-    };
+      updateNativeProps();
+    }
+  };
 
-    const renderMiniComponent = () => {
-      if (typeof itemMini === "function") {
-        return itemMini(showFull);
-      }
-      return itemMini;
-    };
+  const onPanResponderRelease = (event, gestureState) => {
+    if (gestureState.dy < -100 || gestureState.dy < 100) {
+      showFull();
+    } else {
+      showMini();
+    }
+  };
 
-    return (
-      <View
-        ref={viewRef}
-        {...panResponder.panHandlers}
-        style={[
-          styles.wrapSwipe,
-          {
-            height: SWIPE_HEIGHT,
-            marginTop: extraMarginTop,
-          },
-          !itemMini && collapsed && { marginBottom: -SWIPE_HEIGHT },
-          style,
-        ]}
-      >
-        {!disableSwipeIcon && (
-          <SwipeIcon size={iconSize} color={iconColor} ref={swipeIconRef} />
-        )}
-        {collapsed
-          ? itemMini
-            ? renderMiniComponent()
-            : null
-          : renderFullComponent()}
-      </View>
-    );
-  }
-);
+  const panResponder = React.useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: (e, g) => true,
+      onPanResponderMove,
+      onPanResponderRelease,
+    })
+  ).current;
 
-export default SwipeUpDown;
+  const showFull = () => {
+    customStyle.style.top = extraMarginTop;
+    swipeIconRef.current?.setData({
+      icon: images.arrow_down,
+      showIcon: true,
+    });
+    updateNativeProps();
+    setCollapsed(false);
+    checkCollapsed.current = false;
+    onShowFull?.();
+  };
+
+  const showMini = () => {
+    customStyle.style.top = itemMini ? MINI_POSITION : EMPTY_MINI_POSITION;
+    swipeIconRef.current?.setData({ showIcon: false });
+    updateNativeProps();
+    setCollapsed(true);
+    checkCollapsed.current = true;
+    onShowMini?.();
+  };
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      showFull,
+      showMini,
+    }),
+    []
+  );
+
+  const updateNativeProps = () => {
+    switch (animation) {
+      case "linear":
+        LayoutAnimation.linear();
+        break;
+      case "spring":
+        LayoutAnimation.configureNext(CustomAnimation);
+        break;
+      case "easeInEaseOut":
+        LayoutAnimation.easeInEaseOut();
+        break;
+      case "none":
+      default:
+        break;
+    }
+    viewRef.current.setNativeProps(customStyle);
+  };
+
+  const renderFullComponent = () => {
+    if (typeof itemFull === "function") {
+      return itemFull(showMini);
+    }
+    return itemFull;
+  };
+
+  const renderMiniComponent = () => {
+    if (typeof itemMini === "function") {
+      return itemMini(showFull);
+    }
+    return itemMini;
+  };
+  return (
+    <View
+      ref={viewRef}
+      {...panResponder.panHandlers}
+      style={[
+        styles.wrapSwipe,
+        {
+          top,
+          height: maxHeight,
+          marginTop: extraMarginTop,
+        },
+        !itemMini && collapsed && { marginBottom: -swipeHeight },
+        style,
+      ]}
+    >
+      {!disableSwipeIcon && (
+        <SwipeIcon size={iconSize} color={iconColor} ref={swipeIconRef} />
+      )}
+      {collapsed
+        ? itemMini
+          ? renderMiniComponent()
+          : null
+        : renderFullComponent()}
+    </View>
+  );
+};
+
+export default forwardRef(SwipeUpDown);
 
 const styles = StyleSheet.create({
   wrapSwipe: {

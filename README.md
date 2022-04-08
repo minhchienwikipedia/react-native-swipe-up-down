@@ -43,7 +43,7 @@ import SwipeUpDown from 'react-native-swipe-up-down';
 
 ## Note 
 
-If you want hidden component just don't pass props `itemMini`. It's will hidden. And then you can use `hasRef` to show it when you want.
+- If you want hidden component just don't pass props `itemMini`. It's will hidden. And then you can use `hasRef` to show it when you want.
 And try to using this method to show FullComponent
 
 ```jsx
@@ -56,6 +56,18 @@ And try to using this method to show FullComponent
 	ref={swipeUpDownRef}
 />
 ```
+
+- If you want to use `ScrollView` inside `itemFull`, please add `TouchableWithoutFeedback` inside `ScrollView`.
+Example
+```jsx
+<ScrollView>
+    <TouchableWithoutFeedback>
+	{...}
+    </TouchableWithoutFeedback>
+</ScrollView>
+
+```
+
 
 ## More Props
 

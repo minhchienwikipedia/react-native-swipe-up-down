@@ -1,78 +1,83 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View, Picker } from "react-native";
+import React, { useRef } from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import SwipeUpDown from "react-native-swipe-up-down";
 
-type Props = {};
-export default class App extends Component<Props> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      animation: "easeInEaseOut",
-    };
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to{"\n"}react-native-swipe-up-down
-        </Text>
-        <Text
-          style={{ margin: 20 }}
-          onPress={() => this.swipeUpDownRef.showFull()}
-        >
-          Tap to open panel
-        </Text>
-        <Picker
-          selectedValue={this.state.animation}
-          style={{ width: 200 }}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({ animation: itemValue })
-          }
-        >
-          <Picker.Item label="linear" value="linear" />
-          <Picker.Item label="spring" value="spring" />
-          <Picker.Item label="easeInEaseOut" value="easeInEaseOut" />
-          <Picker.Item label="none" value="none" />
-        </Picker>
-        <SwipeUpDown
-          itemMini={(show) => (
-            <View
-              style={{
-                alignItems: "center",
-                flex: 1,
-                backgroundColor: "green",
-              }}
-            >
-              <Text onPress={show}>This is the mini view, swipe up!</Text>
-            </View>
-          )}
-          itemFull={(close) => {
-            return (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  backgroundColor: "red",
-                }}
-              >
-                <Text onPress={close} style={styles.instructions}>
-                  Swipe down to close
-                </Text>
+export default function App() {
+  const swipeUpDownRef = useRef();
+  return (
+    <View style={styles.container}>
+      <Text style={styles.welcome}>
+        Welcome to{"\n"}react-native-swipe-up-down
+      </Text>
+      <Text
+        style={{ margin: 20 }}
+        onPress={() => swipeUpDownRef.current.showFull()}
+      >
+        Tap to open panel
+      </Text>
+      <SwipeUpDown
+        ref={swipeUpDownRef}
+        itemMini={(show) => (
+          <View
+            style={{
+              alignItems: "center",
+            }}
+          >
+            <Text onPress={show}>This is the mini view, swipe up!</Text>
+          </View>
+        )}
+        itemFull={(close) => (
+          <ScrollView>
+            {/** To use scrollview please add TouchableWithoutFeedback */}
+            <TouchableWithoutFeedback>
+              <View>
+                <TouchableOpacity onPress={close}>
+                  <Text>Close</Text>
+                </TouchableOpacity>
+                <View
+                  style={{
+                    backgroundColor: "blue",
+                    height: 200,
+                  }}
+                />
+                <View
+                  style={{
+                    backgroundColor: "yellow",
+                    height: 200,
+                  }}
+                />
+                <View
+                  style={{
+                    backgroundColor: "pink",
+                    height: 200,
+                  }}
+                />
+                <View
+                  style={{
+                    backgroundColor: "red",
+                    height: 200,
+                  }}
+                />
               </View>
-            );
-          }}
-          onShowMini={() => console.log("mini")}
-          onShowFull={() => console.log("full")}
-          animation={this.state.animation}
-          extraMarginTop={inset.top}
-          disablePressToShow={true} // Press item mini to show full
-          style={{ backgroundColor: "#000" }} // style for swipe
-        />
-      </View>
-    );
-  }
+            </TouchableWithoutFeedback>
+          </ScrollView>
+        )}
+        onShowMini={() => console.log("mini")}
+        onShowFull={() => console.log("full")}
+        animation="spring"
+        extraMarginTop={24}
+        disablePressToShow={true} // Press item mini to show full
+        style={{ backgroundColor: "gray" }} // style for swipe
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
