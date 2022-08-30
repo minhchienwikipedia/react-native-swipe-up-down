@@ -6,6 +6,8 @@
 - The best performance 60FPS for UI and JS when swipe up down
 - Easy to use, easy to install - no more another package, only JS
 
+<br><p><a href="https://www.buymeacoffee.com/minhchien"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="fateh999" /></a></p><br><br><br>
+
 ## Demo
 
 |Full/Mini|Hidden component|
