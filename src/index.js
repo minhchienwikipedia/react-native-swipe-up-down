@@ -69,7 +69,7 @@ const SwipeUpDown = (
       // SWIPE DOWN
       top = 0;
       customStyle.style.top = top + gestureState.dy;
-      if (customStyle.style.height <= DEVICE_HEIGHT / 3) {
+      if (customStyle.style.top <= DEVICE_HEIGHT / 3) {
         swipeIconRef.current?.setData({ icon: images.minus });
         if (itemMini) {
           setCollapsed(true);
