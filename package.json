@@ -1,6 +1,6 @@
 {
   "name": "react-native-swipe-up-down",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Swipe Up Down component",
   "main": "index.js",
   "scripts": {
@@ -8,12 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-native-vietnam/react-native-swipe-up-down.git"
+    "url": "https://github.com/minhchienwikipedia/react-native-swipe-up-down.git"
   },
   "keywords": [
     "react-native",
     "minhchienwikipedia",
-    "agiletechvn",
+    "react-native-swipe-up-down",
+    "react-native-swipe",
     "ios",
     "android"
   ],
